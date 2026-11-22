@@ -111,9 +111,11 @@ public class MainActivity extends AppCompatActivity {
             if (!videoView.isPlaying()) {
                 videoView.start();
                 btnPlay.setText("Pause");
+                CastState.sendCommand("play");
             } else {
                 videoView.pause();
                 btnPlay.setText("Play");
+                CastState.sendCommand("pause");
             }
         });
 
@@ -145,11 +147,13 @@ public class MainActivity extends AppCompatActivity {
             CastState.videoPlaying = true;
             videoView.start();
             btnPlay.setText("Pause");
+            CastState.sendCommand("play");
         });
 
         videoView.setOnCompletionListener(mp -> {
             CastState.videoPlaying = false;
             btnPlay.setText("Play");
+            CastState.sendCommand("pause");
         });
 
         videoView.setOnErrorListener((mp, what, extra) -> {
@@ -164,6 +168,7 @@ public class MainActivity extends AppCompatActivity {
                 if (CastState.videoDurationMs > 0) {
                     int pos = (int) (CastState.videoDurationMs * s.getProgress() / 1000);
                     videoView.seekTo(pos);
+                    CastState.sendCommand("seek:" + pos);
                 }
                 seeking = false;
             }
@@ -244,6 +249,8 @@ public class MainActivity extends AppCompatActivity {
                     else if (cmd.startsWith("seek:")) {
                         try { videoView.seekTo(Integer.parseInt(cmd.substring(5))); } catch (Exception ignored) {}
                     }
+                    // PC se aaya command bhi phone state me publish karo, warna PC dobara seek karega
+                    CastState.sendCommand(cmd);
                 }
 
                 boolean live = CastState.serverRunning;

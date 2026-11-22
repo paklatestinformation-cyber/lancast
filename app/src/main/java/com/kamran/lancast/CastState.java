@@ -21,24 +21,26 @@ public final class CastState {
     public static volatile int screenWidth = 0;
     public static volatile int screenHeight = 0;
 
+    public static volatile boolean audioActive = false;
+    public static volatile int audioRate = 44100;
+
     private static final AtomicReference<byte[]> FRAME = new AtomicReference<>();
     private static final AtomicLong FRAME_SEQ = new AtomicLong(0);
 
-    /** control command from PC: play, pause, seek:<ms> */
+    /** Monotonic phone -> PC commands: play, pause, seek:<ms>. PC applies only new seq. */
+    public static volatile long commandSeq = 0;
+    public static volatile String command = "";
+    public static void sendCommand(String cmd) { command = cmd; commandSeq++; }
+
+    /** PC -> phone command: play, pause, seek:<ms>, volume:<0-100> */
     public static volatile String controlCommand = null;
 
     public static void publishFrame(byte[] jpeg) {
         FRAME.set(jpeg);
         FRAME_SEQ.incrementAndGet();
     }
-
-    public static byte[] latestFrame() {
-        return FRAME.get();
-    }
-
-    public static long frameSeq() {
-        return FRAME_SEQ.get();
-    }
+    public static byte[] latestFrame() { return FRAME.get(); }
+    public static long frameSeq() { return FRAME_SEQ.get(); }
 
     private CastState() {}
 }

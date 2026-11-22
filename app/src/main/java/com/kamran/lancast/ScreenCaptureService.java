@@ -13,6 +13,10 @@ import android.graphics.Bitmap;
 import android.graphics.PixelFormat;
 import android.hardware.display.DisplayManager;
 import android.hardware.display.VirtualDisplay;
+import android.media.AudioAttributes;
+import android.media.AudioFormat;
+import android.media.AudioPlaybackCaptureConfiguration;
+import android.media.AudioRecord;
 import android.media.Image;
 import android.media.ImageReader;
 import android.media.projection.MediaProjection;
@@ -29,12 +33,13 @@ import android.view.WindowManager;
 import java.io.ByteArrayOutputStream;
 import java.nio.ByteBuffer;
 
-/** Captures the whole phone screen via MediaProjection and publishes JPEG frames to CastState. */
+/** Captures phone screen (MJPEG frames) + app audio (PCM) via MediaProjection. */
 public class ScreenCaptureService extends Service {
     public static final String EXTRA_RESULT_CODE = "resultCode";
     public static final String EXTRA_DATA = "data";
     private static final String CHANNEL_ID = "lancast_screen";
     private static final int NOTIF_ID = 77;
+    private static final int MAX_W = 960;
 
     private MediaProjection projection;
     private VirtualDisplay virtualDisplay;
@@ -43,16 +48,33 @@ public class ScreenCaptureService extends Service {
     private Handler captureHandler;
     private volatile boolean capturing = false;
 
+    private AudioRecord audioRecord;
+    private Thread audioThread;
+    private volatile boolean audioRunning = false;
+    private int captureW = 0, captureH = 0, dpi = 320;
+
+    private final ImageReader.OnImageAvailableListener imageListener = reader -> {
+        Image image = reader.acquireLatestImage();
+        if (image == null) return;
+        try {
+            if (!capturing) return;
+            Bitmap bitmap = imageToBitmap(image, captureW, captureH);
+            if (bitmap != null) {
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 72, bos);
+                CastState.publishFrame(bos.toByteArray());
+                bitmap.recycle();
+            }
+        } finally {
+            image.close();
+        }
+    };
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if (intent == null || !intent.hasExtra(EXTRA_DATA)) {
-            stopSelf();
-            return START_NOT_STICKY;
-        }
+        if (intent == null || !intent.hasExtra(EXTRA_DATA)) { stopSelf(); return START_NOT_STICKY; }
         try { startForegroundNotification(); } catch (Exception e) {
-            // projected FGS type can be rejected on some OEM builds; stop cleanly instead of crashing
-            stopSelf();
-            return START_NOT_STICKY;
+            stopSelf(); return START_NOT_STICKY;
         }
         int resultCode = intent.getIntExtra(EXTRA_RESULT_CODE, 0);
         Intent data = intent.getParcelableExtra(EXTRA_DATA);
@@ -64,48 +86,100 @@ public class ScreenCaptureService extends Service {
             @Override public void onStop() { stopSelf(); }
         }, new Handler(Looper.getMainLooper()));
 
-        DisplayMetrics metrics = new DisplayMetrics();
-        WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm != null ? wm.getDefaultDisplay() : null;
-        if (display != null) display.getRealMetrics(metrics);
-        int w = metrics.widthPixels > 0 ? metrics.widthPixels : 1080;
-        int h = metrics.heightPixels > 0 ? metrics.heightPixels : 1920;
-        int dpi = metrics.densityDpi > 0 ? metrics.densityDpi : 320;
-
-        // Downscale to <= 960px wide for smooth WiFi streaming.
-        float scale = Math.min(1f, 960f / w);
-        w = Math.max(2, (int) (w * scale) & ~1);
-        h = Math.max(2, (int) (h * scale) & ~1);
-        CastState.screenWidth = w;
-        CastState.screenHeight = h;
-
-        final int captureW = w, captureH = h;
         captureThread = new HandlerThread("screen-capture");
         captureThread.start();
         captureHandler = new Handler(captureThread.getLooper());
-        imageReader = ImageReader.newInstance(captureW, captureH, PixelFormat.RGBA_8888, 2);
-        imageReader.setOnImageAvailableListener(reader -> {
-            Image image = reader.acquireLatestImage();
-            if (image == null) return;
-            try {
-                if (!capturing) return;
-                Bitmap bitmap = imageToBitmap(image, captureW, captureH);
-                if (bitmap != null) {
-                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 72, bos);
-                    CastState.publishFrame(bos.toByteArray());
-                    bitmap.recycle();
-                }
-            } finally {
-                image.close();
-            }
-        }, captureHandler);
 
-        virtualDisplay = projection.createVirtualDisplay("LANVideoCast", captureW, captureH, dpi,
-                DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR, imageReader.getSurface(), null, captureHandler);
+        DisplayMetrics m = currentMetrics();
+        setupDisplay(m.widthPixels, m.heightPixels, m.densityDpi);
         capturing = true;
         CastState.screenActive = true;
+        startAudioCapture();
+        captureHandler.post(rotationCheck);
         return START_STICKY;
+    }
+
+    private final Runnable rotationCheck = new Runnable() {
+        @Override public void run() {
+            if (!capturing) return;
+            try {
+                DisplayMetrics m = currentMetrics();
+                int w = m.widthPixels, h = m.heightPixels;
+                float scale = Math.min(1f, (float) MAX_W / w);
+                int nw = Math.max(2, (int) (w * scale) & ~1);
+                int nh = Math.max(2, (int) (h * scale) & ~1);
+                if (nw != captureW || nh != captureH) setupDisplay(w, h, m.densityDpi);
+            } catch (Exception ignored) {}
+            captureHandler.postDelayed(this, 1000);
+        }
+    };
+
+    private DisplayMetrics currentMetrics() {
+        DisplayMetrics m = new DisplayMetrics();
+        WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm != null ? wm.getDefaultDisplay() : null;
+        if (display != null) display.getRealMetrics(m);
+        if (m.widthPixels <= 0) m.widthPixels = 1080;
+        if (m.heightPixels <= 0) m.heightPixels = 1920;
+        if (m.densityDpi <= 0) m.densityDpi = 320;
+        return m;
+    }
+
+    /** Creates/recreates VirtualDisplay + ImageReader with current orientation dims. */
+    private void setupDisplay(int rawW, int rawH, int rawDpi) {
+        float scale = Math.min(1f, (float) MAX_W / rawW);
+        int w = Math.max(2, (int) (rawW * scale) & ~1);
+        int h = Math.max(2, (int) (rawH * scale) & ~1);
+        if (virtualDisplay != null) { try { virtualDisplay.release(); } catch (Exception ignored) {} virtualDisplay = null; }
+        if (imageReader != null) {
+            try { imageReader.setOnImageAvailableListener(null, null); imageReader.close(); } catch (Exception ignored) {}
+            imageReader = null;
+        }
+        captureW = w; captureH = h; dpi = rawDpi;
+        CastState.screenWidth = w;
+        CastState.screenHeight = h;
+        imageReader = ImageReader.newInstance(w, h, PixelFormat.RGBA_8888, 2);
+        imageReader.setOnImageAvailableListener(imageListener, captureHandler);
+        virtualDisplay = projection.createVirtualDisplay("LANVideoCast", w, h, dpi,
+                DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR, imageReader.getSurface(), null, captureHandler);
+    }
+
+    private void startAudioCapture() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q || projection == null) return;
+        try {
+            AudioPlaybackCaptureConfiguration cfg = new AudioPlaybackCaptureConfiguration.Builder(projection)
+                    .addMatchingUsage(AudioAttributes.USAGE_MEDIA)
+                    .addMatchingUsage(AudioAttributes.USAGE_GAME)
+                    .addMatchingUsage(AudioAttributes.USAGE_UNKNOWN)
+                    .build();
+            final int rate = 44100;
+            int min = AudioRecord.getMinBufferSize(rate, AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT);
+            int bufSize = Math.max(min > 0 ? min : 4096, rate / 5);
+            AudioRecord rec = new AudioRecord.Builder()
+                    .setAudioFormat(new AudioFormat.Builder()
+                            .setEncoding(AudioFormat.ENCODING_PCM_16BIT)
+                            .setSampleRate(rate)
+                            .setChannelMask(AudioFormat.CHANNEL_IN_MONO).build())
+                    .setBufferSizeInBytes(bufSize)
+                    .setAudioPlaybackCaptureConfig(cfg)
+                    .build();
+            if (rec.getState() != AudioRecord.STATE_INITIALIZED) { rec.release(); return; }
+            audioRecord = rec;
+            CastState.audioRate = rate;
+            CastState.audioActive = true;
+            audioRunning = true;
+            audioThread = new Thread(() -> {
+                byte[] data = new byte[Math.max(2048, bufSize / 4)];
+                while (audioRunning && audioRecord != null) {
+                    int n = audioRecord.read(data, 0, data.length);
+                    if (n > 0) AudioBridge.INSTANCE.write(data, n);
+                    else if (n < 0) break;
+                }
+            }, "audio-capture");
+            audioThread.start();
+        } catch (Throwable t) {
+            CastState.audioActive = false;
+        }
     }
 
     @SuppressLint("NewApi")
@@ -117,19 +191,15 @@ public class ScreenCaptureService extends Service {
         Intent open = new Intent(this, MainActivity.class);
         PendingIntent pi = PendingIntent.getActivity(this, 0, open,
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-        Notification.Builder b;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) b = new Notification.Builder(this, CHANNEL_ID);
-        else b = new Notification.Builder(this);
+        Notification.Builder b = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
+                ? new Notification.Builder(this, CHANNEL_ID) : new Notification.Builder(this);
         b.setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setContentTitle("Screen Cast chal raha hai")
                 .setContentText("PC par screen dekhne ke liye browser kholein")
-                .setContentIntent(pi)
-                .setOngoing(true);
+                .setContentIntent(pi).setOngoing(true);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             startForeground(NOTIF_ID, b.build(), ServiceInfo.FOREGROUND_SERVICE_TYPE_MEDIA_PROJECTION);
-        } else {
-            startForeground(NOTIF_ID, b.build());
-        }
+        } else startForeground(NOTIF_ID, b.build());
     }
 
     private static Bitmap imageToBitmap(Image image, int w, int h) {
@@ -158,8 +228,12 @@ public class ScreenCaptureService extends Service {
     @Override
     public void onDestroy() {
         capturing = false;
+        audioRunning = false;
         CastState.screenActive = false;
+        CastState.audioActive = false;
+        AudioBridge.INSTANCE.clear();
         CastState.publishFrame(null);
+        if (audioRecord != null) { try { audioRecord.stop(); } catch (Exception ignored) {} try { audioRecord.release(); } catch (Exception ignored) {} }
         if (virtualDisplay != null) { try { virtualDisplay.release(); } catch (Exception ignored) {} }
         if (imageReader != null) { try { imageReader.close(); } catch (Exception ignored) {} }
         if (projection != null) { try { projection.stop(); } catch (Exception ignored) {} }

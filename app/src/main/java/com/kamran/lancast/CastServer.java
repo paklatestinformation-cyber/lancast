@@ -113,6 +113,8 @@ public class CastServer {
                 byte[] frame = CastState.latestFrame();
                 if (frame == null) sendBytes(client, 204, "image/jpeg", new byte[0]);
                 else sendBytes(client, 200, "image/jpeg", frame);
+            } else if ("/audio".equals(path)) {
+                streamAudio(client);
             } else if ("/video".equals(path)) {
                 streamVideo(client, method, headers.get("range"));
             } else {
@@ -154,7 +156,11 @@ public class CastServer {
                 + ",\"screenActive\":" + CastState.screenActive
                 + ",\"screenWidth\":" + CastState.screenWidth
                 + ",\"screenHeight\":" + CastState.screenHeight
-                + ",\"frameSeq\":" + CastState.frameSeq() + "}";
+                + ",\"frameSeq\":" + CastState.frameSeq()
+                + ",\"audioActive\":" + CastState.audioActive
+                + ",\"audioRate\":" + CastState.audioRate
+                + ",\"commandSeq\":" + CastState.commandSeq
+                + ",\"command\":\"" + (CastState.command == null ? "" : CastState.command) + "\"}";
     }
 
     private void streamVideo(Socket client, String method, String range) throws IOException {
@@ -240,6 +246,26 @@ public class CastServer {
             } else {
                 try { Thread.sleep(30); } catch (InterruptedException e) { break; }
             }
+        }
+    }
+
+    private void streamAudio(Socket client) throws IOException {
+        OutputStream out = client.getOutputStream();
+        String head = "HTTP/1.1 200 OK\r\n"
+                + "Content-Type: audio/pcm\r\n"
+                + "Cache-Control: no-store\r\n"
+                + "Connection: close\r\n"
+                + "Transfer-Encoding: chunked\r\n\r\n";
+        out.write(head.getBytes(StandardCharsets.US_ASCII));
+        out.flush();
+        while (running && !client.isClosed()) {
+            byte[] data = AudioBridge.INSTANCE.readBlocking(8192);
+            if (data.length == 0) continue;
+            out.write(Integer.toHexString(data.length).getBytes(StandardCharsets.US_ASCII));
+            out.write("\r\n".getBytes(StandardCharsets.US_ASCII));
+            out.write(data);
+            out.write("\r\n".getBytes(StandardCharsets.US_ASCII));
+            out.flush();
         }
     }
 

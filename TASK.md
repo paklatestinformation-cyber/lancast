@@ -15,6 +15,9 @@ PLAN: apk skill (GitHub Actions cloud build).
 - [x] 8. UI design system (dark mode, accent #2563EB, adaptive icon, empty/loading/error states)
 - [x] 9. Push to GitHub → watch build → fix if failed (4 builds; fixes: lambda final vars, release permissions)
 - [x] 10. Deliver APK link + usage steps
+- [x] 11. Fix launch crash (apk-5): CastService → dataSync FGS type, defensive startForeground, global crash logger
+- [ ] 12. Feedback fixes: seq-based video sync (no poll fighting), screen audio via AudioPlaybackCapture + /audio, PC Web Audio volume/mute, landscape full-view on phone rotation
+- [ ] 13. Rebuild + watch CI + deliver new APK
 
 ## Key decisions (22 Nov 2026)
 - Package: `com.kamran.lancast`, repo `lancast`, app name "LAN Video Cast".
@@ -29,5 +32,12 @@ PLAN: apk skill (GitHub Actions cloud build).
 - Release `apk-4`: https://github.com/paklatestinformation-cyber/lancast/releases/download/apk-4/app-debug.apk
 - Green build run: 45039058987.
 
+## Feedback round (22 Nov 2026)
+- User: PC video plays then stops immediately; screen share has no sound; PC needs its own sound/volume control; landscape phone → PC view must fill full screen.
+- Fixes implemented: CastState commandSeq (phone → PC play/pause/seek only on new seq), AudioBridge PCM ring buffer, /audio chunked endpoint, receiver.html Web Audio master GainNode + volume/mute + screen audio stream, rotation-based VirtualDisplay recreate + landscape CSS.
+
+## Result
+- Release `apk-5`: https://github.com/paklatestinformation-cyber/lancast/releases/download/apk-5/app-debug.apk (launch crash fixed).
+
 ## NOW
-- Delivered to user; awaiting their test feedback.
+- Rebuilding with 4 feedback fixes; next: green run → new APK link.
