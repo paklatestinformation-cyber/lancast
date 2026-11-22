@@ -1,0 +1,84 @@
+﻿2026-11-22T15:30:57.8160071Z ##[group]Run gradle assembleDebug --no-daemon --stacktrace
+2026-11-22T15:30:57.8160797Z [36;1mgradle assembleDebug --no-daemon --stacktrace[0m
+2026-11-22T15:30:57.8196290Z shell: /usr/bin/bash -e {0}
+2026-11-22T15:30:57.8196585Z env:
+2026-11-22T15:30:57.8196908Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+2026-11-22T15:30:57.8197424Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+2026-11-22T15:30:57.8197868Z   GRADLE_ACTION_ID: gradle/actions/setup-gradle
+2026-11-22T15:30:57.8198184Z   GRADLE_BUILD_ACTION_SETUP_COMPLETED: true
+2026-11-22T15:30:57.8198483Z   GRADLE_BUILD_ACTION_CACHE_RESTORED: true
+2026-11-22T15:30:57.8198930Z   DEVELOCITY_INJECTION_INIT_SCRIPT_NAME: gradle-actions.inject-develocity.init.gradle
+2026-11-22T15:30:57.8199421Z   DEVELOCITY_AUTO_INJECTION_CUSTOM_VALUE: gradle-actions
+2026-11-22T15:30:57.8199752Z   GITHUB_DEPENDENCY_GRAPH_ENABLED: false
+2026-11-22T15:30:57.8200162Z ##[endgroup]
+2026-11-22T15:30:58.8402653Z 
+2026-11-22T15:30:58.8403474Z Welcome to Gradle 9.9.1!
+2026-11-22T15:30:58.8403856Z 
+2026-11-22T15:30:58.8407080Z Here are the highlights of this release:
+2026-11-22T15:30:58.8408499Z  - Performance improvements for Kotlin DSL compilation
+2026-11-22T15:30:58.8413058Z  - Test filtering for non-method JUnit Platform tests
+2026-11-22T15:30:58.8440181Z  - Wrapper settings preserved on upgrade
+2026-11-22T15:30:58.8448407Z  - Predefined groups in the Problems API
+2026-11-22T15:30:58.8449161Z 
+2026-11-22T15:30:58.8449627Z For more details see https://docs.gradle.org/9.9.1/release-notes.html
+2026-11-22T15:30:58.8450177Z 
+2026-11-22T15:30:59.0397522Z To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.9.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+2026-11-22T15:31:00.3363155Z Daemon will be stopped at the end of the build 
+2026-11-22T15:31:32.6380365Z > Task :app:preBuild UP-TO-DATE
+2026-11-22T15:31:32.6402440Z > Task :app:preDebugBuild UP-TO-DATE
+2026-11-22T15:31:32.6403595Z > Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+2026-11-22T15:31:32.7364068Z > Task :app:javaPreCompileDebug
+2026-11-22T15:31:40.3362742Z > Task :app:generateDebugResValues
+2026-11-22T15:31:40.3364180Z > Task :app:checkDebugAarMetadata
+2026-11-22T15:31:40.4360817Z > Task :app:mapDebugSourceSetPaths
+2026-11-22T15:31:40.4362978Z > Task :app:generateDebugResources
+2026-11-22T15:31:41.7360663Z > Task :app:packageDebugResources
+2026-11-22T15:31:42.7364883Z > Task :app:createDebugCompatibleScreenManifests
+2026-11-22T15:31:42.7382772Z > Task :app:extractDeepLinksDebug
+2026-11-22T15:31:42.8440943Z > Task :app:parseDebugLocalResources
+2026-11-22T15:31:43.1360847Z > Task :app:processDebugMainManifest
+2026-11-22T15:31:43.3361885Z > Task :app:mergeDebugResources
+2026-11-22T15:31:43.9361108Z > Task :app:processDebugManifest
+2026-11-22T15:31:44.0360662Z > Task :app:mergeDebugShaders
+2026-11-22T15:31:44.0361591Z > Task :app:compileDebugShaders NO-SOURCE
+2026-11-22T15:31:44.0362238Z > Task :app:processDebugManifestForPackage
+2026-11-22T15:31:44.9379525Z > Task :app:generateDebugAssets UP-TO-DATE
+2026-11-22T15:31:45.0371620Z > Task :app:mergeDebugAssets
+2026-11-22T15:31:45.0425875Z > Task :app:desugarDebugFileDependencies
+2026-11-22T15:31:45.0455948Z > Task :app:processDebugJavaRes NO-SOURCE
+2026-11-22T15:31:45.0508867Z > Task :app:compressDebugAssets
+2026-11-22T15:31:46.0366532Z > Task :app:processDebugResources
+2026-11-22T15:31:46.3406106Z > Task :app:mergeDebugJavaResource
+2026-11-22T15:31:46.3441886Z > Task :app:checkDebugDuplicateClasses
+2026-11-22T15:31:50.3364490Z 
+2026-11-22T15:31:50.3365458Z > Task :app:compileDebugJavaWithJavac
+2026-11-22T15:31:50.3366037Z Note: Some input files use or override a deprecated API.
+2026-11-22T15:31:50.3396073Z Note: Recompile with -Xlint:deprecation for details.
+2026-11-22T15:31:54.3402815Z 
+2026-11-22T15:31:54.3435837Z > Task :app:dexBuilderDebug
+2026-11-22T15:32:17.1376126Z > Task :app:mergeDebugStartupProfile
+2026-11-22T15:32:17.1377764Z > Task :app:mergeDebugGlobalSynthetics
+2026-11-22T15:32:17.2369402Z > Task :app:mergeLibDexDebug
+2026-11-22T15:32:17.2375858Z > Task :app:mergeDebugJniLibFolders
+2026-11-22T15:32:17.5375536Z > Task :app:mergeDebugNativeLibs NO-SOURCE
+2026-11-22T15:32:17.5414412Z > Task :app:stripDebugDebugSymbols NO-SOURCE
+2026-11-22T15:32:17.6378360Z > Task :app:mergeProjectDexDebug
+2026-11-22T15:32:19.7366704Z > Task :app:validateSigningDebug
+2026-11-22T15:32:19.7396336Z > Task :app:writeDebugAppMetadata
+2026-11-22T15:32:19.7396954Z > Task :app:writeDebugSigningConfigVersions
+2026-11-22T15:32:20.3360403Z > Task :app:mergeExtDexDebug
+2026-11-22T15:32:20.7384535Z > Task :app:packageDebug
+2026-11-22T15:32:20.7389671Z > Task :app:createDebugApkListingFileRedirect
+2026-11-22T15:32:20.7391141Z > Task :app:assembleDebug
+2026-11-22T15:32:20.8370504Z 
+2026-11-22T15:32:20.8379146Z [Incubating] Problems report is available at: file:///home/runner/work/lancast/lancast/build/reports/problems/problems-report.html
+2026-11-22T15:32:20.8382068Z 
+2026-11-22T15:32:20.8382797Z Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+2026-11-22T15:32:20.8383861Z 
+2026-11-22T15:32:20.8384829Z You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+2026-11-22T15:32:20.8386795Z 
+2026-11-22T15:32:20.8387936Z For more on this, please refer to https://docs.gradle.org/9.9.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+2026-11-22T15:32:20.8391817Z 
+2026-11-22T15:32:20.8392297Z BUILD SUCCESSFUL in 1m 22s
+2026-11-22T15:32:20.8393141Z 33 actionable tasks: 33 executed
+2026-11-22T15:32:20.8394393Z Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.9.1/userguide/configuration_cache_enabling.html

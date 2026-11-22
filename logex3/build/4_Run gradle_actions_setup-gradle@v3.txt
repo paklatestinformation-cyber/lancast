@@ -1,0 +1,31 @@
+﻿2026-11-22T15:30:57.1492810Z ##[group]Run gradle/actions/setup-gradle@v3
+2026-11-22T15:30:57.1493488Z with:
+2026-11-22T15:30:57.1493909Z   cache-disabled: false
+2026-11-22T15:30:57.1494364Z   cache-read-only: false
+2026-11-22T15:30:57.1494827Z   cache-write-only: false
+2026-11-22T15:30:57.1495545Z   cache-overwrite-existing: false
+2026-11-22T15:30:57.1496149Z   gradle-home-cache-includes: caches
+notifications
+
+2026-11-22T15:30:57.1496810Z   gradle-home-cache-cleanup: false
+2026-11-22T15:30:57.1497325Z   add-job-summary: always
+2026-11-22T15:30:57.1497820Z   add-job-summary-as-pr-comment: never
+2026-11-22T15:30:57.1498374Z   dependency-graph: disabled
+2026-11-22T15:30:57.1498919Z   dependency-graph-continue-on-failure: true
+2026-11-22T15:30:57.1499503Z   build-scan-publish: false
+2026-11-22T15:30:57.1500021Z   validate-wrappers: false
+2026-11-22T15:30:57.1500446Z   generate-job-summary: true
+2026-11-22T15:30:57.1500896Z   gradle-home-cache-strict-match: false
+2026-11-22T15:30:57.1501398Z   workflow-job-context: null
+2026-11-22T15:30:57.1503917Z   github-token: ***
+2026-11-22T15:30:57.1504189Z env:
+2026-11-22T15:30:57.1504560Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+2026-11-22T15:30:57.1505364Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+2026-11-22T15:30:57.1505816Z ##[endgroup]
+2026-11-22T15:30:57.3566844Z (node:2520) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-22T15:30:57.3568772Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-22T15:30:57.5688812Z Merged default JDK locations into /home/runner/.m2/toolchains.xml
+2026-11-22T15:30:57.5690412Z ##[group]Restore Gradle state from cache
+2026-11-22T15:30:57.7880987Z ##[warning]Failed to restore gradle-home-v1|Linux|build[620c74083efa5b88ef904c2356f72d31]-a1c8945a8e113e8abc9fcd66ff6a9134a8f4d395: Error: Cache service responded with 400
+2026-11-22T15:30:57.8002171Z Gradle User Home cache not found. Will initialize empty.
+2026-11-22T15:30:57.8003156Z ##[endgroup]

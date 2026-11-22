@@ -1,0 +1,32 @@
+﻿2026-11-22T15:32:21.0710035Z ##[group]Run actions/upload-artifact@v4
+2026-11-22T15:32:21.0710367Z with:
+2026-11-22T15:32:21.0710567Z   name: app-debug
+2026-11-22T15:32:21.0710826Z   path: app/build/outputs/apk/debug/app-debug.apk
+2026-11-22T15:32:21.0711137Z   if-no-files-found: warn
+2026-11-22T15:32:21.0711364Z   compression-level: 6
+2026-11-22T15:32:21.0711576Z   overwrite: false
+2026-11-22T15:32:21.0711787Z   include-hidden-files: false
+2026-11-22T15:32:21.0712023Z env:
+2026-11-22T15:32:21.0712313Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+2026-11-22T15:32:21.0712821Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+2026-11-22T15:32:21.0713238Z   GRADLE_ACTION_ID: gradle/actions/setup-gradle
+2026-11-22T15:32:21.0713550Z   GRADLE_BUILD_ACTION_SETUP_COMPLETED: true
+2026-11-22T15:32:21.0713841Z   GRADLE_BUILD_ACTION_CACHE_RESTORED: true
+2026-11-22T15:32:21.0714274Z   DEVELOCITY_INJECTION_INIT_SCRIPT_NAME: gradle-actions.inject-develocity.init.gradle
+2026-11-22T15:32:21.0714816Z   DEVELOCITY_AUTO_INJECTION_CUSTOM_VALUE: gradle-actions
+2026-11-22T15:32:21.0715412Z   GITHUB_DEPENDENCY_GRAPH_ENABLED: false
+2026-11-22T15:32:21.0715694Z ##[endgroup]
+2026-11-22T15:32:21.2426017Z (node:2884) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-22T15:32:21.2426800Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-22T15:32:21.2473898Z With the provided path, there will be 1 file uploaded
+2026-11-22T15:32:21.2480855Z Artifact name is valid!
+2026-11-22T15:32:21.2505879Z Root directory input is valid!
+2026-11-22T15:32:21.5574641Z Beginning upload of artifact content to blob storage
+2026-11-22T15:32:21.7500242Z (node:2884) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-11-22T15:32:22.3967881Z Uploaded bytes 4611110
+2026-11-22T15:32:22.4546305Z Finished uploading artifact content to blob storage!
+2026-11-22T15:32:22.4547484Z SHA256 digest of uploaded artifact zip is f015263d3c0476d53c26c9080e4bfeca487542142bcbc9cb7c65409fe9676524
+2026-11-22T15:32:22.4549752Z Finalizing artifact upload
+2026-11-22T15:32:22.8148891Z Artifact app-debug.zip successfully finalized. Artifact ID 14761016502
+2026-11-22T15:32:22.8150605Z Artifact app-debug has been successfully uploaded! Final size is 4611110 bytes. Artifact ID is 14761016502
+2026-11-22T15:32:22.8156268Z Artifact download URL: https://github.com/paklatestinformation-cyber/lancast/actions/runs/45038719154/artifacts/14761016502

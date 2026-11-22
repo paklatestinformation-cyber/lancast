@@ -1,0 +1,23 @@
+﻿2026-11-22T15:32:22.8355516Z ##[group]Run softprops/action-gh-release@v2
+2026-11-22T15:32:22.8355894Z with:
+2026-11-22T15:32:22.8356092Z   tag_name: apk-3
+2026-11-22T15:32:22.8356357Z   files: app/build/outputs/apk/debug/app-debug.apk
+2026-11-22T15:32:22.8356681Z   overwrite_files: true
+2026-11-22T15:32:22.8358948Z   token: ***
+2026-11-22T15:32:22.8359146Z env:
+2026-11-22T15:32:22.8359441Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+2026-11-22T15:32:22.8359964Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.21-9/x64
+2026-11-22T15:32:22.8360391Z   GRADLE_ACTION_ID: gradle/actions/setup-gradle
+2026-11-22T15:32:22.8360706Z   GRADLE_BUILD_ACTION_SETUP_COMPLETED: true
+2026-11-22T15:32:22.8361000Z   GRADLE_BUILD_ACTION_CACHE_RESTORED: true
+2026-11-22T15:32:22.8361441Z   DEVELOCITY_INJECTION_INIT_SCRIPT_NAME: gradle-actions.inject-develocity.init.gradle
+2026-11-22T15:32:22.8361934Z   DEVELOCITY_AUTO_INJECTION_CUSTOM_VALUE: gradle-actions
+2026-11-22T15:32:22.8362270Z   GITHUB_DEPENDENCY_GRAPH_ENABLED: false
+2026-11-22T15:32:22.8364605Z   GITHUB_TOKEN: ***
+2026-11-22T15:32:22.8364834Z ##[endgroup]
+2026-11-22T15:32:23.2897186Z 👩‍🏭 Creating new GitHub release for tag apk-3...
+2026-11-22T15:32:23.4350074Z ⚠️ GitHub release failed with status: 403
+2026-11-22T15:32:23.4351153Z {"message":"Resource not accessible by integration","documentation_url":"https://docs.github.com/rest/releases/releases#create-a-release","status":"403"}
+2026-11-22T15:32:23.4352442Z Skip retry — your GitHub token/PAT does not have the required permission to create a release
+2026-11-22T15:32:23.4353872Z ⚠️ Unexpected error fetching GitHub release for tag refs/heads/main: HttpError: Resource not accessible by integration - https://docs.github.com/rest/releases/releases#create-a-release
+2026-11-22T15:32:23.4357766Z ##[error]Resource not accessible by integration - https://docs.github.com/rest/releases/releases#create-a-release
