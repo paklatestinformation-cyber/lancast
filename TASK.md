@@ -39,5 +39,10 @@ PLAN: apk skill (GitHub Actions cloud build).
 ## Result
 - Release `apk-5`: https://github.com/paklatestinformation-cyber/lancast/releases/download/apk-5/app-debug.apk (launch crash fixed).
 
+## Result (final)
+- Release `apk-6`: https://github.com/paklatestinformation-cyber/lancast/releases/download/apk-6/app-debug.apk
+- Green build run: 45048227956 (`success`).
+- Fixes in apk-6: seq-based sync commands, PCM screen audio + /audio, Web Audio volume/mute, rotation-aware landscape full view.
+
 ## NOW
-- Rebuilding with 4 feedback fixes; next: green run → new APK link.
+- Delivered apk-6 to user; awaiting their test feedback.
