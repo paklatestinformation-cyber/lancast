@@ -7,14 +7,14 @@ PLAN: apk skill (GitHub Actions cloud build).
 ## Steps
 - [x] 1. Requirements + architecture lock (native Java, embedded HTTP server, status API)
 - [x] 2. Memory/project notes save
-- [ ] 3. Gradle scaffold + GitHub Actions workflow
-- [ ] 4. MainActivity + video picker + player + foreground service
-- [ ] 5. Embedded HTTP server (file streaming Range + /status + /control + MJPEG screen stream)
-- [ ] 6. MediaProjection screen capture service (permission dialog, virtual display, JPEG loop)
-- [ ] 7. PC receiver HTML page (2 tabs: synced video player + live screen MJPEG)
-- [ ] 8. UI design system (dark mode, accent #2563EB, adaptive icon, empty/loading/error states)
-- [ ] 8. Push to GitHub → watch build → fix if failed
-- [ ] 9. Deliver APK link + usage steps
+- [x] 3. Gradle scaffold + GitHub Actions workflow
+- [x] 4. MainActivity + video picker + player + foreground service
+- [x] 5. Embedded HTTP server (file streaming Range + /status + /control + MJPEG screen stream)
+- [x] 6. MediaProjection screen capture service (permission dialog, virtual display, JPEG loop)
+- [x] 7. PC receiver HTML page (2 tabs: synced video player + live screen MJPEG)
+- [x] 8. UI design system (dark mode, accent #2563EB, adaptive icon, empty/loading/error states)
+- [x] 9. Push to GitHub → watch build → fix if failed (4 builds; fixes: lambda final vars, release permissions)
+- [x] 10. Deliver APK link + usage steps
 
 ## Key decisions (22 Nov 2026)
 - Package: `com.kamran.lancast`, repo `lancast`, app name "LAN Video Cast".
@@ -25,5 +25,9 @@ PLAN: apk skill (GitHub Actions cloud build).
 - HTTP Range support required so PC `<video>` can seek.
 - Screen Cast uses MediaProjection permission flow (API >= 29 requires foreground service with type mediaProjection).
 
+## Result (22 Nov 2026)
+- Release `apk-4`: https://github.com/paklatestinformation-cyber/lancast/releases/download/apk-4/app-debug.apk
+- Green build run: 45039058987.
+
 ## NOW
-- Step 3: writing gradle scaffold + workflow.
+- Delivered to user; awaiting their test feedback.

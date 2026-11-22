@@ -54,7 +54,11 @@ public class CastService extends Service {
                 .setContentIntent(pi)
                 .setOngoing(true);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            startForeground(NOTIF_ID, b.build(), ServiceInfo.FOREGROUND_SERVICE_TYPE_MEDIA_PROJECTION);
+            try {
+                startForeground(NOTIF_ID, b.build(), ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC);
+            } catch (Exception e) {
+                try { startForeground(NOTIF_ID, b.build()); } catch (Exception ignored) {}
+            }
         } else {
             startForeground(NOTIF_ID, b.build());
         }

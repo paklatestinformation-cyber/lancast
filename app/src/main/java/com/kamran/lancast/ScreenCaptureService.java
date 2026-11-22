@@ -49,7 +49,11 @@ public class ScreenCaptureService extends Service {
             stopSelf();
             return START_NOT_STICKY;
         }
-        startForegroundNotification();
+        try { startForegroundNotification(); } catch (Exception e) {
+            // projected FGS type can be rejected on some OEM builds; stop cleanly instead of crashing
+            stopSelf();
+            return START_NOT_STICKY;
+        }
         int resultCode = intent.getIntExtra(EXTRA_RESULT_CODE, 0);
         Intent data = intent.getParcelableExtra(EXTRA_DATA);
         MediaProjectionManager mpm = (MediaProjectionManager) getSystemService(Context.MEDIA_PROJECTION_SERVICE);
