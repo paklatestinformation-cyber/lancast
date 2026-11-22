@@ -75,16 +75,17 @@ public class ScreenCaptureService extends Service {
         CastState.screenWidth = w;
         CastState.screenHeight = h;
 
+        final int captureW = w, captureH = h;
         captureThread = new HandlerThread("screen-capture");
         captureThread.start();
         captureHandler = new Handler(captureThread.getLooper());
-        imageReader = ImageReader.newInstance(w, h, PixelFormat.RGBA_8888, 2);
+        imageReader = ImageReader.newInstance(captureW, captureH, PixelFormat.RGBA_8888, 2);
         imageReader.setOnImageAvailableListener(reader -> {
             Image image = reader.acquireLatestImage();
             if (image == null) return;
             try {
                 if (!capturing) return;
-                Bitmap bitmap = imageToBitmap(image, w, h);
+                Bitmap bitmap = imageToBitmap(image, captureW, captureH);
                 if (bitmap != null) {
                     ByteArrayOutputStream bos = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 72, bos);
@@ -96,7 +97,7 @@ public class ScreenCaptureService extends Service {
             }
         }, captureHandler);
 
-        virtualDisplay = projection.createVirtualDisplay("LANVideoCast", w, h, dpi,
+        virtualDisplay = projection.createVirtualDisplay("LANVideoCast", captureW, captureH, dpi,
                 DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR, imageReader.getSurface(), null, captureHandler);
         capturing = true;
         CastState.screenActive = true;
