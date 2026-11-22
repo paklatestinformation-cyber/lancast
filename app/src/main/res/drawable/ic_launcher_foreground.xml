@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+  android:width="108dp" android:height="108dp"
+  android:viewportWidth="108" android:viewportHeight="108">
+  <group android:translateX="21" android:translateY="21">
+    <!-- screen -->
+    <path android:fillColor="#FFFFFF" android:pathData="M8,10h52a4,4 0 0 1 4,4v30a4,4 0 0 1 -4,4H8a4,4 0 0 1 -4,-4V14a4,4 0 0 1 4,-4zM8,16v26h52V16z"/>
+    <!-- cast arcs -->
+    <path android:fillColor="#FFFFFF" android:pathData="M12,58a30,30 0 0 1 30,30h-8a22,22 0 0 0 -22,-22z"/>
+    <path android:fillColor="#FFFFFF" android:pathData="M12,68a20,20 0 0 1 20,20h-8a12,12 0 0 0 -12,-12z"/>
+    <path android:fillColor="#FFFFFF" android:pathData="M12,78a10,10 0 0 1 10,10H12z"/>
+  </group>
+</vector>

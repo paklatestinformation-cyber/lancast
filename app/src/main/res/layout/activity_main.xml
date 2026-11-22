@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent" android:layout_height="match_parent"
+  android:background="@color/bg" android:fillViewport="true">
+  <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:orientation="vertical" android:padding="16dp">
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="56dp"
+      android:orientation="horizontal" android:gravity="center_vertical">
+      <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+        android:text="@string/app_name" android:textSize="17sp" android:textStyle="bold"
+        android:textColor="@color/text_primary"/>
+      <TextView android:id="@+id/statusChip" android:layout_width="wrap_content" android:layout_height="28dp"
+        android:gravity="center" android:paddingStart="12dp" android:paddingEnd="12dp"
+        android:text="STARTING" android:textSize="11sp" android:textStyle="bold"
+        android:textColor="@color/on_accent" android:background="@drawable/chip_off"/>
+    </LinearLayout>
+
+    <!-- VIDEO CAST CARD -->
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+      android:orientation="vertical" android:background="@drawable/card_bg"
+      android:padding="16dp" android:layout_marginTop="8dp">
+      <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="VIDEO CAST" android:textSize="11sp" android:textStyle="bold"
+        android:textColor="@color/accent" android:letterSpacing="0.08"/>
+      <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="Phone par video play karo, PC par bhi chale"
+        android:textSize="13sp" android:textColor="@color/text_secondary" android:layout_marginTop="4dp"/>
+
+      <FrameLayout android:layout_width="match_parent" android:layout_height="200dp"
+        android:layout_marginTop="14dp" android:background="#000000">
+        <VideoView android:id="@+id/videoView" android:layout_width="match_parent"
+          android:layout_height="match_parent" android:visibility="gone"/>
+        <LinearLayout android:id="@+id/videoPlaceholder" android:layout_width="match_parent"
+          android:layout_height="match_parent" android:orientation="vertical"
+          android:gravity="center">
+          <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="▶" android:textSize="40sp" android:textColor="#5A5F6A"/>
+          <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Abhi koi video nahi" android:textSize="13sp"
+            android:textColor="#9A9AA0" android:layout_marginTop="6dp"/>
+        </LinearLayout>
+      </FrameLayout>
+
+      <TextView android:id="@+id/videoName" android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:text="Koi video select nahi ki"
+        android:textSize="16sp" android:textStyle="bold" android:textColor="@color/text_primary"
+        android:layout_marginTop="12dp"/>
+
+      <SeekBar android:id="@+id/seekBar" android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:layout_marginTop="6dp"
+        android:progressTint="@color/accent" android:thumbTint="@color/accent" android:max="1000"/>
+
+      <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView android:id="@+id/timeCur" android:layout_width="0dp" android:layout_weight="1"
+          android:layout_height="wrap_content" android:text="0:00" android:textSize="11sp"
+          android:textColor="@color/text_secondary"/>
+        <TextView android:id="@+id/timeDur" android:layout_width="wrap_content" android:layout_height="wrap_content"
+          android:text="0:00" android:textSize="11sp" android:textColor="@color/text_secondary"/>
+      </LinearLayout>
+
+      <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="horizontal" android:layout_marginTop="12dp">
+        <Button android:id="@+id/btnPick" android:layout_width="0dp" android:layout_weight="1"
+          android:layout_height="48dp" android:text="Video choose karo" android:textSize="13sp"
+          android:backgroundTint="@color/accent" android:textColor="@color/on_accent"/>
+        <Button android:id="@+id/btnPlay" android:layout_width="0dp" android:layout_weight="1"
+          android:layout_height="48dp" android:text="Play" android:textSize="13sp"
+          android:layout_marginStart="8dp" android:backgroundTint="@color/accent"
+          android:textColor="@color/on_accent" android:enabled="false"/>
+      </LinearLayout>
+    </LinearLayout>
+
+    <!-- SCREEN CAST CARD -->
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+      android:orientation="vertical" android:background="@drawable/card_bg"
+      android:padding="16dp" android:layout_marginTop="12dp">
+      <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="SCREEN CAST" android:textSize="11sp" android:textStyle="bold"
+        android:textColor="@color/accent" android:letterSpacing="0.08"/>
+      <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="Poori phone screen PC par live dekho (koi bhi app chalao)"
+        android:textSize="13sp" android:textColor="@color/text_secondary" android:layout_marginTop="4dp"/>
+      <TextView android:id="@+id/screenStatus" android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:text="Screen cast band hai"
+        android:textSize="13sp" android:textColor="@color/text_primary" android:layout_marginTop="12dp"/>
+      <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="horizontal" android:layout_marginTop="10dp">
+        <Button android:id="@+id/btnScreenStart" android:layout_width="0dp" android:layout_weight="1"
+          android:layout_height="48dp" android:text="Screen share start" android:textSize="13sp"
+          android:backgroundTint="@color/accent" android:textColor="@color/on_accent"/>
+        <Button android:id="@+id/btnScreenStop" android:layout_width="0dp" android:layout_weight="1"
+          android:layout_height="48dp" android:text="Band karo" android:textSize="13sp"
+          android:layout_marginStart="8dp" android:backgroundTint="@color/danger"
+          android:textColor="@color/on_accent" android:enabled="false"/>
+      </LinearLayout>
+    </LinearLayout>
+
+    <!-- CONNECTION CARD -->
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+      android:orientation="vertical" android:background="@drawable/card_bg"
+      android:padding="16dp" android:layout_marginTop="12dp">
+      <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="PC PAR KHALEIN" android:textSize="11sp" android:textStyle="bold"
+        android:textColor="@color/accent" android:letterSpacing="0.08"/>
+      <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="PC aur phone same WiFi se connected hone chahiye"
+        android:textSize="13sp" android:textColor="@color/text_secondary" android:layout_marginTop="4dp"/>
+      <TextView android:id="@+id/linkText" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="http://..." android:textSize="16sp" android:textStyle="bold"
+        android:textColor="@color/accent" android:layout_marginTop="12dp"
+        android:textIsSelectable="true"/>
+      <TextView android:id="@+id/ipText" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="IP: ..." android:textSize="11sp" android:textColor="@color/text_secondary"
+        android:layout_marginTop="4dp"/>
+      <Button android:id="@+id/btnCopy" android:layout_width="match_parent" android:layout_height="48dp"
+        android:text="Link copy karo" android:textSize="13sp" android:layout_marginTop="12dp"
+        android:backgroundTint="@color/accent" android:textColor="@color/on_accent"/>
+      <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="1) Link PC ke browser mein kholein\n2) Video tab = synced playback\n3) Screen tab = phone ki live screen"
+        android:textSize="12sp" android:textColor="@color/text_secondary" android:layout_marginTop="12dp"/>
+    </LinearLayout>
+
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+      android:text="@string/developed_by" android:textSize="11sp" android:textColor="@color/text_secondary"
+      android:gravity="center" android:layout_marginTop="18dp" android:layout_marginBottom="8dp"/>
+  </LinearLayout>
+</ScrollView>
