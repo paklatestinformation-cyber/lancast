@@ -124,6 +124,10 @@
 
     <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
       android:text="@string/developed_by" android:textSize="11sp" android:textColor="@color/text_secondary"
-      android:gravity="center" android:layout_marginTop="18dp" android:layout_marginBottom="8dp"/>
+      android:gravity="center" android:layout_marginTop="18dp"/>
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+      android:text="@string/developer_contact" android:textSize="11sp" android:textColor="@color/text_secondary"
+      android:gravity="center" android:autoLink="phone" android:linksClickable="true"
+      android:layout_marginTop="2dp" android:layout_marginBottom="8dp"/>
   </LinearLayout>
 </ScrollView>

@@ -1,0 +1,73 @@
+﻿2026-11-22T15:24:39.8060690Z ##[group]Run actions/checkout@v4
+2026-11-22T15:24:39.8061472Z with:
+2026-11-22T15:24:39.8062014Z   repository: paklatestinformation-cyber/lancast
+2026-11-22T15:24:39.8066818Z   token: ***
+2026-11-22T15:24:39.8067290Z   ssh-strict: true
+2026-11-22T15:24:39.8067777Z   ssh-user: git
+2026-11-22T15:24:39.8068269Z   persist-credentials: true
+2026-11-22T15:24:39.8068806Z   clean: true
+2026-11-22T15:24:39.8069303Z   sparse-checkout-cone-mode: true
+2026-11-22T15:24:39.8069891Z   fetch-depth: 1
+2026-11-22T15:24:39.8070369Z   fetch-tags: false
+2026-11-22T15:24:39.8070898Z   show-progress: true
+2026-11-22T15:24:39.8071432Z   lfs: false
+2026-11-22T15:24:39.8071906Z   submodules: false
+2026-11-22T15:24:39.8072414Z   set-safe-directory: true
+2026-11-22T15:24:39.8072980Z   allow-unsafe-pr-checkout: false
+2026-11-22T15:24:39.8073646Z ##[endgroup]
+2026-11-22T15:24:40.0075585Z Syncing repository: paklatestinformation-cyber/lancast
+2026-11-22T15:24:40.0076748Z ##[group]Getting Git version info
+2026-11-22T15:24:40.0076998Z Working directory is '/home/runner/work/lancast/lancast'
+2026-11-22T15:24:40.0077488Z [command]/usr/bin/git version
+2026-11-22T15:24:40.0103206Z git version 2.56.1
+2026-11-22T15:24:40.0115616Z ##[endgroup]
+2026-11-22T15:24:40.0125989Z Temporarily overriding HOME='/home/runner/work/_temp/8ac4d7ce-4ee0-4507-90af-2075f71afe13' before making global git config changes
+2026-11-22T15:24:40.0129439Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-22T15:24:40.0129877Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/lancast/lancast
+2026-11-22T15:24:40.0183477Z Deleting the contents of '/home/runner/work/lancast/lancast'
+2026-11-22T15:24:40.0186206Z ##[group]Initializing the repository
+2026-11-22T15:24:40.0190142Z [command]/usr/bin/git init /home/runner/work/lancast/lancast
+2026-11-22T15:24:40.0269834Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-22T15:24:40.0270455Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-22T15:24:40.0271006Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-22T15:24:40.0271385Z hint: call:
+2026-11-22T15:24:40.0271599Z hint:
+2026-11-22T15:24:40.0271968Z hint: 	git config --global init.defaultBranch <name>
+2026-11-22T15:24:40.0272299Z hint:
+2026-11-22T15:24:40.0272614Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-22T15:24:40.0273193Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-22T15:24:40.0273570Z hint:
+2026-11-22T15:24:40.0273803Z hint: 	git branch -m <name>
+2026-11-22T15:24:40.0274071Z hint:
+2026-11-22T15:24:40.0274534Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-22T15:24:40.0277544Z Initialized empty Git repository in /home/runner/work/lancast/lancast/.git/
+2026-11-22T15:24:40.0288687Z [command]/usr/bin/git remote add origin https://github.com/paklatestinformation-cyber/lancast
+2026-11-22T15:24:40.0336736Z ##[endgroup]
+2026-11-22T15:24:40.0337392Z ##[group]Disabling automatic garbage collection
+2026-11-22T15:24:40.0340137Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-22T15:24:40.0371964Z ##[endgroup]
+2026-11-22T15:24:40.0372545Z ##[group]Setting up auth
+2026-11-22T15:24:40.0378078Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-22T15:24:40.0411299Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-22T15:24:40.0862857Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-22T15:24:40.0895232Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-22T15:24:40.1126197Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-22T15:24:40.1156245Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-22T15:24:40.1377134Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-22T15:24:40.1411364Z ##[endgroup]
+2026-11-22T15:24:40.1411943Z ##[group]Fetching the repository
+2026-11-22T15:24:40.1418248Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +cc36e858448c90fa8169b49fcb5316c500d6e123:refs/remotes/origin/main
+2026-11-22T15:24:40.4408664Z From https://github.com/paklatestinformation-cyber/lancast
+2026-11-22T15:24:40.4410483Z  * [new ref]         cc36e858448c90fa8169b49fcb5316c500d6e123 -> origin/main
+2026-11-22T15:24:40.4411799Z ##[endgroup]
+2026-11-22T15:24:40.4413803Z ##[group]Determining the checkout info
+2026-11-22T15:24:40.4414330Z ##[endgroup]
+2026-11-22T15:24:40.4419984Z [command]/usr/bin/git sparse-checkout disable
+2026-11-22T15:24:40.4490300Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-22T15:24:40.4515796Z ##[group]Checking out the ref
+2026-11-22T15:24:40.4519120Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-11-22T15:24:40.4612127Z Switched to a new branch 'main'
+2026-11-22T15:24:40.4616381Z branch 'main' set up to track 'origin/main'.
+2026-11-22T15:24:40.4620718Z ##[endgroup]
+2026-11-22T15:24:40.4661793Z [command]/usr/bin/git log -1 --format=%H
+2026-11-22T15:24:40.4681657Z cc36e858448c90fa8169b49fcb5316c500d6e123

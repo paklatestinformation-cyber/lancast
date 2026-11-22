@@ -1,0 +1,29 @@
+﻿2026-11-22T15:25:36.8175961Z Post job cleanup.
+2026-11-22T15:25:36.9716215Z In post-action step
+2026-11-22T15:25:36.9722217Z Stopping all Gradle daemons before saving Gradle User Home state
+2026-11-22T15:25:36.9722568Z Stopping Gradle daemons for /usr/share/gradle-9.9.1
+2026-11-22T15:25:36.9730755Z (node:2561) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-22T15:25:36.9731133Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-22T15:25:36.9735241Z [command]/usr/share/gradle-9.9.1/bin/gradle --stop
+2026-11-22T15:25:37.4438052Z No Gradle daemons are running.
+2026-11-22T15:25:37.4685456Z ##[group]Caching Gradle state
+2026-11-22T15:25:37.6187969Z Caching dependencies with path '/home/runner/.gradle/caches/modules-*/files-*/*/*/*/*' and cache key: gradle-dependencies-v1-e91147c486384b69966034fb2de05f0d
+2026-11-22T15:25:37.6300436Z Caching instrumented-jars with path '/home/runner/.gradle/caches/jars-*/*/' and cache key: gradle-instrumented-jars-v1-a657bbc063a3df271dfa773670459d46
+2026-11-22T15:25:37.6513406Z Caching groovy-dsl with path '/home/runner/.gradle/caches/*/groovy-dsl/*/' and cache key: gradle-groovy-dsl-v1-f2a28ab978629d8c0094e2fa5cb84316
+2026-11-22T15:25:37.6529353Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/lancast/lancast --files-from manifest.txt --use-compress-program zstdmt
+2026-11-22T15:25:37.6764847Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/lancast/lancast --files-from manifest.txt --use-compress-program zstdmt
+2026-11-22T15:25:37.7125350Z ##[warning]Failed to save cache entry with path '/home/runner/.gradle/caches/jars-*/*/' and key: gradle-instrumented-jars-v1-a657bbc063a3df271dfa773670459d46: Error: <h2>Our services aren't available right now</h2><p>We're working to restore all services as soon as possible. Please check back soon.</p>0cQkDawAAAABou1qqJ+j2S4C1dX8tMVpXU04xRURHRTI4MTgARWRnZQ==
+2026-11-22T15:25:37.7360127Z ##[warning]Failed to save cache entry with path '/home/runner/.gradle/caches/*/groovy-dsl/*/' and key: gradle-groovy-dsl-v1-f2a28ab978629d8c0094e2fa5cb84316: Error: <h2>Our services aren't available right now</h2><p>We're working to restore all services as soon as possible. Please check back soon.</p>0cQkDawAAAACGhfBphYCXQI5D/4BgLmE2U04xRURHRTI4MTMARWRnZQ==
+2026-11-22T15:25:37.8956612Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/lancast/lancast --files-from manifest.txt --use-compress-program zstdmt
+2026-11-22T15:25:37.9965025Z Caching transforms with path '/home/runner/.gradle/caches/transforms-4/*/
+2026-11-22T15:25:37.9985706Z /home/runner/.gradle/caches/*/transforms/*/' and cache key: gradle-transforms-v1-d8529ef43291814e43f852fd6182c238
+2026-11-22T15:25:38.1734077Z ##[warning]Failed to save cache entry with path '/home/runner/.gradle/caches/modules-*/files-*/*/*/*/*' and key: gradle-dependencies-v1-e91147c486384b69966034fb2de05f0d: Error: <h2>Our services aren't available right now</h2><p>We're working to restore all services as soon as possible. Please check back soon.</p>0cgkDawAAAABr0bZ//5ngRovOd2fl37tfU04xRURHRTE2MTEARWRnZQ==
+2026-11-22T15:25:38.3295458Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/lancast/lancast --files-from manifest.txt --use-compress-program zstdmt
+2026-11-22T15:25:38.8893151Z ##[warning]Failed to save cache entry with path '/home/runner/.gradle/caches/transforms-4/*/
+/home/runner/.gradle/caches/*/transforms/*/' and key: gradle-transforms-v1-d8529ef43291814e43f852fd6182c238: Error: <h2>Our services aren't available right now</h2><p>We're working to restore all services as soon as possible. Please check back soon.</p>0cgkDawAAAADKSshsqU8uS4gFeF6x7UARU04xRURHRTE0MjAARWRnZQ==
+2026-11-22T15:25:39.4480466Z Caching Gradle User Home with cache key: gradle-home-v1|Linux|build[620c74083efa5b88ef904c2356f72d31]-cc36e858448c90fa8169b49fcb5316c500d6e123
+2026-11-22T15:25:39.4558662Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/lancast/lancast --files-from manifest.txt --use-compress-program zstdmt
+2026-11-22T15:25:39.5261056Z ##[warning]Failed to save cache entry with path '/home/runner/.gradle/caches,/home/runner/.gradle/notifications,/home/runner/.gradle/.setup-gradle' and key: gradle-home-v1|Linux|build[620c74083efa5b88ef904c2356f72d31]-cc36e858448c90fa8169b49fcb5316c500d6e123: Error: <h2>Our services aren't available right now</h2><p>We're working to restore all services as soon as possible. Please check back soon.</p>0cwkDawAAAACMOHY+6R19RokAlcEdPABoU04xRURHRTMwMDgARWRnZQ==
+2026-11-22T15:25:39.5264288Z ##[endgroup]
+2026-11-22T15:25:39.5265444Z Generating Job Summary
+2026-11-22T15:25:39.5275761Z Completed post-action step

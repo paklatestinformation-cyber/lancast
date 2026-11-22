@@ -191,6 +191,7 @@ public class MainActivity extends AppCompatActivity {
             }
         } catch (Exception ignored) {}
 
+        final String finalDisplayName = name;
         Toast.makeText(this, "Video load ho raha hai...", Toast.LENGTH_SHORT).show();
         new Thread(() -> {
             File out = new File(getCacheDir(), "cast_video_" + System.currentTimeMillis() + ".mp4");
@@ -199,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
                 byte[] buf = new byte[64 * 1024];
                 int n;
                 while ((n = in.read(buf)) > 0) fos.write(buf, 0, n);
-                final String finalName = name;
+                final String finalName = finalDisplayName;
                 final String path = out.getAbsolutePath();
                 runOnUiThread(() -> {
                     CastState.videoPath = path;
